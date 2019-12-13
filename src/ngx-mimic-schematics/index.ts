@@ -26,34 +26,16 @@ export function ngxMimicSchematics(options: Schema): Rule {
 
     context.addTask(new NodePackageInstallTask());
 
-    addMimicToMain();
+    addMimicToMain(tree);
     return tree;
   };
 }
-function addMimicToMain() {
-  return (host: Tree, context: SchematicContext) => {
-    const filePath = './src/main.ts';
+function addMimicToMain(host: Tree) {
 
-    const logger = context.logger;
 
-    if (!filePath) {
-      logger.error(`Could not find the default style file for this project.`);
-      logger.info(
-        `Please consider manually setting up the Roboto font in your CSS.`
-      );
-      return;
-    }
+    const filePath = '/src/main.ts';
 
     const buffer = host.read(filePath);
-
-    if (!buffer) {
-      logger.error(
-        `Could not read the default style file within the project ` +
-          `(${filePath})`
-      );
-      logger.info(`Please consider manually setting up the Robot font.`);
-      return;
-    }
 
     const textContent = buffer.toString();
 
@@ -70,7 +52,7 @@ function addMimicToMain() {
     ];
     return applyChanges(host, filePath, changes);
   };
-}
+
 export function applyChanges(
   host: Tree,
   path: string,
@@ -92,10 +74,10 @@ function updateMainTs(filePath: string, sourceFile: SourceFile) {
   return new InsertChange(
     filePath,
     end,
-    `
-    (require as any).ensure(['mimic'], require => {
+`if (isDevMode){
+  (require as any).ensure(['mimic'], require => {
     require('mimic');
   });
-    `
+}`
   );
 }
