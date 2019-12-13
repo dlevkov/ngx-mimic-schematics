@@ -1,0 +1,10 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "mimic": {
+      "description": "mimic implementation schematic for dev env and lazy",
+      "factory": "./ngx-mimic-schematics/index#ngxMimicSchematics",
+      "schema": "./ngx-mimic-schematics/schema.json"
+    }
+  }
+}

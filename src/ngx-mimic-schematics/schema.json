@@ -1,0 +1,25 @@
+{
+  "id": "ngx-mimic-schematic",
+  "title": "My awesome schematic",
+  "type": "object",
+  "properties": {
+    "environment": {
+      "type": "string",
+      "description": "Select environment from predefined list",
+      "default": "dev",
+      "enum": ["dev", "int", "qa"],
+      "x-prompt": {
+        "message": "Please select environment to integrate mimic",
+        "type": "list",
+        "multiselect": false,
+        "items": [
+          { "value": "dev", "label": "Development" },
+          { "value": "int", "label": "Integration" },
+          { "value": "qa", "label": "QA" }
+        ]
+      }
+    }
+  },
+  "required": ["environment"],
+  "additionalProperties": false
+}

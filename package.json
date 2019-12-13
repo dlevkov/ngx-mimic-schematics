@@ -1,0 +1,27 @@
+{
+  "name": "ngx-mimic-schematics",
+  "version": "0.0.0",
+  "description": "A blank schematics",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "npm run build -- --watch",
+    "schematics:watch": "cd ./src/ngx-mimic-schematics/ && npm link && cd .. && npm link ngx-mimic-schematics && npm run build --prefix ./dist/ngx-mimic-schematics -- --watch"
+  },
+  "keywords": [
+    "schematics"
+  ],
+  "files": [
+    "src"
+  ],
+  "author": "",
+  "license": "MIT",
+  "schematics": "./src/collection.json",
+  "dependencies": {
+    "@angular-devkit/core": "^8.3.20",
+    "@angular-devkit/schematics": "^8.3.20",
+    "@types/jasmine": "^3.3.9",
+    "@types/node": "^8.0.31",
+    "jasmine": "^3.3.1",
+    "typescript": "~3.5.3"
+  }
+}
