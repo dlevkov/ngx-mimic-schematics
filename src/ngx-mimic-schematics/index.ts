@@ -4,7 +4,6 @@ import {
   Tree,
   SchematicsException
 } from '@angular-devkit/schematics';
-
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { addPackageToPackageJson } from './utils/package-config';
 import { Schema } from './schema';
@@ -12,8 +11,6 @@ import { insertImport } from './utils/ast-tools';
 import { createSourceFile, ScriptTarget, SourceFile } from 'typescript';
 import { InsertChange } from './utils/change';
 
-// You don't have to export the function as default. You can also have more than one rule factory
-// per file.
 export function ngxMimicSchematics(options: Schema): Rule {
   if (!options.environment) {
     throw new SchematicsException(
