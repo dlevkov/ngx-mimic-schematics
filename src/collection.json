@@ -1,10 +1,16 @@
 {
   "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
-    "mimic": {
-      "description": "mimic implementation schematic for dev env and lazy",
+    "ng-add": {
       "factory": "./ngx-mimic-schematics/index#ngxMimicSchematics",
-      "schema": "./ngx-mimic-schematics/schema.json"
+      "schema": "./ngx-mimic-schematics/schema.json",
+      "description": "Add mimic configuration.",
+      "aliases": ["init"]
+    },
+    "mimic": {
+      "factory": "./ngx-mimic-schematics/index#ngxMimicSchematics",
+      "schema": "./ngx-mimic-schematics/schema.json",
+      "description": "mimic implementation schematic for dev env and lazy"
     }
   }
 }

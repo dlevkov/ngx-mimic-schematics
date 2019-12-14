@@ -7,7 +7,7 @@ import {
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { addPackageToPackageJson } from './utils/package-config';
 import { Schema } from './schema';
-import { insertImport } from './utils/ast-tools';
+import { insertImport, getVersion } from './utils/ast-tools';
 import { createSourceFile, ScriptTarget, SourceFile } from 'typescript';
 import { InsertChange } from './utils/change';
 
@@ -19,7 +19,18 @@ export function ngxMimicSchematics(options: Schema): Rule {
   }
 
   return (tree: Tree, context: SchematicContext) => {
-    addPackageToPackageJson(tree, 'mimic', `latest`);
+    addPackageToPackageJson(
+      tree,
+      'devDependencies',
+      'mimic',
+      getVersion('mimic', 'latest')
+    );
+    addPackageToPackageJson(
+      tree,
+      'devDependencies',
+      '@types/node',
+      getVersion('@types/node', 'latest')
+    );
 
     context.addTask(new NodePackageInstallTask());
 
@@ -28,27 +39,25 @@ export function ngxMimicSchematics(options: Schema): Rule {
   };
 }
 function addMimicToMain(host: Tree) {
+  const filePath = '/src/main.ts';
 
+  const buffer = host.read(filePath);
 
-    const filePath = '/src/main.ts';
+  const textContent = buffer.toString();
 
-    const buffer = host.read(filePath);
+  const sFile = createSourceFile(
+    filePath,
+    textContent,
+    ScriptTarget.Latest,
+    true
+  );
 
-    const textContent = buffer.toString();
-
-    const sFile = createSourceFile(
-      filePath,
-      textContent,
-      ScriptTarget.Latest,
-      true
-    );
-
-    const changes: any = [
-      insertImport(sFile, filePath, 'isDevMode', '@angular/core'),
-      updateMainTs(filePath, sFile)
-    ];
-    return applyChanges(host, filePath, changes);
-  };
+  const changes: any = [
+    insertImport(sFile, filePath, 'isDevMode', '@angular/core'),
+    updateMainTs(filePath, sFile)
+  ];
+  return applyChanges(host, filePath, changes);
+}
 
 export function applyChanges(
   host: Tree,
@@ -71,7 +80,7 @@ function updateMainTs(filePath: string, sourceFile: SourceFile) {
   return new InsertChange(
     filePath,
     end,
-`if (isDevMode){
+    `if (isDevMode){
   (require as any).ensure(['mimic'], require => {
     require('mimic');
   });

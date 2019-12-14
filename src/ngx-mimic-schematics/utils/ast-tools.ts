@@ -25,7 +25,7 @@ export function insertImport(
       if (child.kind === ts.SyntaxKind.ImportClause) {
         child.getChildren().forEach((c: any) => {
           if (!c.elements) return;
-          c.elements.forEach((elem:any) => {
+          c.elements.forEach((elem: any) => {
             symbolName = symbolName
               .split(', ')
               .filter(symbol => {
@@ -707,4 +707,12 @@ export function isImported(
     });
 
   return matchingNodes.length > 0;
+}
+/** Loads the full version from the given package gracefully. */
+export function getVersion(packageName: string, defaultVer = 'latest'): string | null {
+  try {
+    return require(`${packageName}/package.json`).version;
+  } catch {
+    return defaultVer;
+  }
 }

@@ -1,28 +1,21 @@
-# Getting Started With Schematics
+# Getting Started With **'ngx-mimic-schematics'**
 
-This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
+This repository is a schematics, that adds mimic package to Your project and adds injection point in `main.ts`, ONLY for NON-PROD environment
 
-### Testing
+---
 
-To test locally, install `@angular-devkit/schematics-cli` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.
+## What is mimic?
 
-Check the documentation with
-```bash
-schematics --help
-```
+![alt](https://mimic.js.org/assets/images/mimic_screenshot.png)
 
-### Unit Testing
+Mimic is a tool for mocking server responses on the client side.
 
-`npm run test` will run the unit tests, using Jasmine as a runner and test framework.
+## Usage
 
-### Publishing
+Simply
 
-To publish, simply do:
-
-```bash
-npm run build
-npm publish
+```npm
+ng add ngx-mimic-schematics
 ```
 
 That's it!
- 
