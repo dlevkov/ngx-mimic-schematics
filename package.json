@@ -1,6 +1,6 @@
 {
   "name": "ngx-mimic-schematics",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A Mimic schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json",

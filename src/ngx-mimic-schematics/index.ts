@@ -80,7 +80,7 @@ function updateMainTs(filePath: string, sourceFile: SourceFile) {
   return new InsertChange(
     filePath,
     end,
-    `if (isDevMode){
+    `if (isDevMode()){
   (require as any).ensure(['mimic'], require => {
     require('mimic');
   });
